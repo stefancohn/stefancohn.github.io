@@ -8,7 +8,7 @@
 .hbox {
     background-color: orange;
 
-    width: 500px;
+    width: 400px;
     height: 100px;
 
     margin-top: 60px;
@@ -31,7 +31,7 @@ h1 {
 
 
     text-align: center;
-    font-size: 60px;
+    font-size: 45px;
     color: white;
     background-color: orange;
 
@@ -48,13 +48,15 @@ h1 {
 }
 
 .linkBox {
-    width: 30%;
+    width: 200px;
 
-    margin-top: 75px;
+    margin-top: 45px;
     margin-left: auto;
     margin-right: auto;
     
     display: flex;
+    flex-direction: column;
+    row-gap: 15px;
 }
 
 .singleBox {
@@ -71,6 +73,12 @@ h1 {
 
     padding: 10px;
 
+}
+
+#appstore {
+    background-color: rgb(0, 122, 255);
+}
+#appstore b {
     background-color: rgb(0, 122, 255);
 }
 
@@ -83,7 +91,19 @@ h1 {
 
 b {
     margin-top: 10px;
-    background-color: rgb(0, 122, 255);
     color: white;
     font-size: 30px;
+    text-align: center;
+}
+
+#playstore {
+    background-color: white;
+}
+#playstore *{
+    background-color: rgb(255, 255, 255);
+    color: rgb(144, 144, 144)
+}
+
+.playstoreIcon {
+    width: 50px;
 }
