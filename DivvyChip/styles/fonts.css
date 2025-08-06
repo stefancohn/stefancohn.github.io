@@ -1,0 +1,14 @@
+@font-face {
+    font-family : 'Galada';
+    src: url("../assets/fonts/Galada-Regular.ttf") format('truetype')
+}
+
+@font-face {
+    font-family : 'EncodeSansBold';
+    src: url("../assets/fonts/EncodeSansBold.ttf") format('truetype')
+}
+
+@font-face {
+    font-family : 'EncodeSans';
+    src: url("../assets/fonts/Encode Sans SC.ttf") format('truetype')
+}

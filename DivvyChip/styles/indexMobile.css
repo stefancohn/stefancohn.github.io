@@ -1,0 +1,77 @@
+@media only screen and (max-width: 800px) {
+  body {
+    background: radial-gradient(circle at center, #343434 0%, #282828 20%, #0a0a0a 100%);
+    display: flex;
+    flex-direction: column-reverse;
+    background-color: #050505;
+  }
+  body .titleWithPreview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 6rem;
+    margin-top: 2rem;
+    height: 100%;
+  }
+  body .titleWithPreview #appPreview {
+    width: 394px;
+    height: 551px;
+  }
+  body .titleWithPreview .titleSubtext {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  body .titleWithPreview .titleSubtext h1 {
+    font-size: 5rem;
+    font-family: "Galada";
+    color: rgb(214, 214, 214);
+    margin: 0px;
+    margin-bottom: -2rem;
+    text-shadow: 0 0 5px #000000, 0 0 10px #000000, 0 0 20px rgb(0, 0, 0), 0 0 30px rgb(174, 54, 54), 0 0 40px rgb(161, 33, 33);
+    margin-top: -2.5rem;
+  }
+  body .titleWithPreview .titleSubtext p {
+    font-family: "EncodeSans";
+    text-align: center;
+    font-size: 2rem;
+    color: rgb(255, 201, 201);
+  }
+  body .titleWithPreview .titleSubtext .downloadContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+  }
+  body .titleWithPreview .titleSubtext .downloadContainer #downloadButton {
+    width: 13rem;
+    height: 4rem;
+  }
+  body .logoWithDescription {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    gap: 9rem;
+  }
+  body .logoWithDescription #logo {
+    width: 18rem;
+    height: 18rem;
+  }
+  body .logoWithDescription .descriptionContainer {
+    color: white;
+    font-family: "EncodeSans";
+    display: none;
+  }
+  body .logoWithDescription .descriptionContainer h1 {
+    text-shadow: 0 0 5px #000000, 0 0 10px #000000, 0 0 20px rgb(0, 0, 0), 0 0 30px rgb(174, 54, 54), 0 0 40px rgb(161, 33, 33);
+  }
+  footer {
+    color: white;
+  }
+}
+
+/*# sourceMappingURL=indexMobile.css.map */
