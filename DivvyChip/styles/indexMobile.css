@@ -15,8 +15,8 @@
     height: 100%;
   }
   body .titleWithPreview #appPreview {
-    width: 394px;
-    height: 551px;
+    width: 354px;
+    height: 511px;
   }
   body .titleWithPreview .titleSubtext {
     display: flex;
@@ -25,7 +25,7 @@
     align-items: center;
   }
   body .titleWithPreview .titleSubtext h1 {
-    font-size: 5rem;
+    font-size: 4rem;
     font-family: "Galada";
     color: rgb(214, 214, 214);
     margin: 0px;
@@ -36,7 +36,7 @@
   body .titleWithPreview .titleSubtext p {
     font-family: "EncodeSans";
     text-align: center;
-    font-size: 2rem;
+    font-size: 1.2rem;
     color: rgb(255, 201, 201);
   }
   body .titleWithPreview .titleSubtext .downloadContainer {
@@ -45,8 +45,8 @@
     gap: 15px;
   }
   body .titleWithPreview .titleSubtext .downloadContainer #downloadButton {
-    width: 13rem;
-    height: 4rem;
+    width: 10rem;
+    height: 3rem;
   }
   body .logoWithDescription {
     display: flex;
@@ -58,8 +58,8 @@
     gap: 9rem;
   }
   body .logoWithDescription #logo {
-    width: 18rem;
-    height: 18rem;
+    width: 13rem;
+    height: 13rem;
   }
   body .logoWithDescription .descriptionContainer {
     color: white;

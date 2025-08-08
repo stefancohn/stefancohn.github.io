@@ -12,10 +12,10 @@
     background-color: #050505;
 
     //VARIABLES
-    $logoSize: 18rem;
+    $logoSize: 13rem;
 
-    $previewWidth : 394px;
-    $previewHeight: 551px;
+    $previewWidth : 354px;
+    $previewHeight: 511px;
 
     $logoPreviewGap:6rem;
 
@@ -42,7 +42,7 @@
         align-items: center;
 
         h1 {
-            font-size: 5rem;
+            font-size: 4rem;
             font-family: 'Galada';
             color: rgb(214, 214, 214);
             margin: 0px;
@@ -59,7 +59,7 @@
         p {
             font-family: 'EncodeSans';
             text-align: center;
-            font-size: 2.0rem;
+            font-size: 1.2rem;
             color: rgb(255, 201, 201);
         }
 
@@ -70,8 +70,8 @@
 
 
             #downloadButton {
-            width: 13rem;
-            height: 4rem;
+            width: 10rem;
+            height: 3rem;
             }
         }
         }
