@@ -200,9 +200,9 @@ var render = function(){
     var tlateMatrix = translate(controller.getXOffset(), controller.getYOffset(), controller.getZOffset());
     var rMatrix = rotate(controller.getRotation(), 0, 1, 0);
     var sMatrix = scalem(duckScale, duckScale, duckScale);
-    var tformMatrix = mult(tlateMatrix, mult(rMatrix, sMatrix));
+    var liftMatrix = translate(0, (duckScale - 1.0) * 0.7, 0);
+    var tformMatrix = mult(tlateMatrix, mult(rMatrix, mult(liftMatrix, sMatrix)));
 
-    //focus on ducky!
     at[0]=controller.getXOffset();
     at[1]=controller.getYOffset();
     at[2]=controller.getZOffset();
@@ -281,7 +281,7 @@ var render = function(){
             var dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
             if (dist < 0.8 * duckScale + 0.5) {
                 balls[i].collected = true;
-                duckScale += 0.3;
+                duckScale += 0.5;
                 collectedCount++;
                 var sizeDisplay = document.getElementById('sizeDisplay');
                 if (sizeDisplay) sizeDisplay.textContent = 'Size: ' + duckScale.toFixed(1) + 'x  |  Balls: ' + collectedCount;

@@ -391,16 +391,16 @@ var duckScale = 1.0;
 var collectedCount = 0;
 
 var balls = [
-  { x: -15, y: -1.0, z: -5, collected: false },
-  { x: -5, y: -1.0, z: 10, collected: false },
-  { x: 10, y: -1.0, z: -8, collected: false },
-  { x: 20, y: -1.0, z: 5, collected: false },
-  { x: -25, y: -1.0, z: 8, collected: false },
-  { x: 0, y: -1.0, z: 0, collected: false },
-  { x: 30, y: -1.0, z: -10, collected: false },
-  { x: -35, y: -1.0, z: -3, collected: false },
-  { x: 15, y: -1.0, z: 12, collected: false },
-  { x: -10, y: -1.0, z: -12, collected: false },
+  { x: -15, y: 1.0, z: -5, collected: false },
+  { x: -5, y: 1.0, z: 10, collected: false },
+  { x: 10, y: 1.0, z: -8, collected: false },
+  { x: 20, y: 1.0, z: 5, collected: false },
+  { x: -25, y: 1.0, z: 8, collected: false },
+  { x: 0, y: 1.0, z: 0, collected: false },
+  { x: 30, y: 1.0, z: -10, collected: false },
+  { x: -35, y: 1.0, z: -3, collected: false },
+  { x: 15, y: 1.0, z: 12, collected: false },
+  { x: -10, y: 1.0, z: -12, collected: false },
 ];
 
 var accel = 0;
