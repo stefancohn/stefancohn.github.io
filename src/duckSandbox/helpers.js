@@ -356,4 +356,87 @@ function generateSphere(radius, slices, stacks) {
       var cosLng0 = Math.cos(lng0);
       var sinLng0 = Math.sin(lng0);
       var cosLng1 = Math.cos(lng1);
-      va
+      var sinLng1 = Math.sin(lng1);
+
+      var v0 = vec3(radius * cosLat0 * cosLng0, radius * sinLat0, radius * cosLat0 * sinLng0);
+      var v1 = vec3(radius * cosLat1 * cosLng0, radius * sinLat1, radius * cosLat1 * sinLng0);
+      var v2 = vec3(radius * cosLat1 * cosLng1, radius * sinLat1, radius * cosLat1 * sinLng1);
+      var v3 = vec3(radius * cosLat0 * cosLng1, radius * sinLat0, radius * cosLat0 * sinLng1);
+
+      var n0 = normalize(vec3(v0));
+      var n1 = normalize(vec3(v1));
+      var n2 = normalize(vec3(v2));
+      var n3 = normalize(vec3(v3));
+
+      var c = (i + j) % 2 === 0 ? gold : goldHighlight;
+
+      positions.push(v0, v1, v3);
+      normals.push(n0, n1, n3);
+      colors.push(c, c, c);
+
+      positions.push(v1, v2, v3);
+      normals.push(n1, n2, n3);
+      colors.push(c, c, c);
+    }
+  }
+
+  return {
+    position: positions,
+    normal: normals,
+    colors: colors
+  };
+}
+
+var duckScale = 1.0;
+var collectedCount = 0;
+
+var balls = [
+  { x: -15, y: 1.0, z: -5, collected: false },
+  { x: -5, y: 1.0, z: 10, collected: false },
+  { x: 10, y: 1.0, z: -8, collected: false },
+  { x: 20, y: 1.0, z: 5, collected: false },
+  { x: -25, y: 1.0, z: 8, collected: false },
+  { x: 0, y: 1.0, z: 0, collected: false },
+  { x: 30, y: 1.0, z: -10, collected: false },
+  { x: -35, y: 1.0, z: -3, collected: false },
+  { x: 15, y: 1.0, z: 12, collected: false },
+  { x: -10, y: 1.0, z: -12, collected: false },
+];
+
+var accel = 0;
+function fallCheck(controller) {
+  if (controller.falling) {
+    controller.offsetY(-0.1 + accel);
+    accel -= 0.1;
+  }
+
+  //Z check
+  else if (controller.getZOffset() > 14.5) {
+    controller.falling = true;
+  }
+
+  else if (controller.getZOffset() < -14.5) {
+    controller.falling = true;
+  }
+
+  //X check
+  else if (controller.getXOffset() < -49.75) {
+    controller.falling = true;
+  }
+
+  else if (controller.getXOffset() > 49.75) {
+    controller.falling = true
+  }
+
+  //for respawn animation
+  if (!controller.falling && controller.getYOffset() > 0) {
+    controller.offsetY(-1);
+  }
+}
+
+function respawnCheck(controller){
+  if (controller.getYOffset() < -90) {
+    accel = 0;
+    controller.respawn();
+  }
+}
