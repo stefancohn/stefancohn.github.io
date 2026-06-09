@@ -82,4 +82,4 @@ class Controller {
     }
 }
 
-var controller = new Controller();
+var controll

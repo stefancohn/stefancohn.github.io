@@ -21,4 +21,3 @@ Personal portfolio site — vanilla HTML/CSS/JS. No build, test, lint, or CI/CD.
 - Hidden nav link (`???`) points to `src/duckSandbox/main.html`
 - `.gitignore` only skips `.DS_Store`
 - All changes push directly to `main` — no PR workflow
-- Dev server: `./serve.sh` (or `python3 -m http.server 8000`) from repo root
