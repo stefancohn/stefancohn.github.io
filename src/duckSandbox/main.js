@@ -8,6 +8,10 @@ var cBuffer, nBuffer, vBuffer;
 var floor_cBuffer, floor_nBuffer, floor_vBuffer; 
 //skybox buffers
 var skybox_vBuffer; 
+//ball buffers
+var ball_vBuffer, ball_nBuffer, ball_cBuffer; 
+var sphereData;
+var ballPositionCount;
 
 var vColor, vNormal, vPosition, skyboxVPosition; 
 
@@ -119,6 +123,22 @@ window.onload = async function init() {
     gl.bindBuffer( gl.ARRAY_BUFFER, floor_vBuffer );
     gl.bufferData( gl.ARRAY_BUFFER, flatten(floorData.position), gl.STATIC_DRAW );
 
+    // --- BALL BUFFERS ---
+    sphereData = generateSphere(0.5, 16, 12);
+    ballPositionCount = sphereData.position.length;
+
+    ball_vBuffer = gl.createBuffer();
+    gl.bindBuffer( gl.ARRAY_BUFFER, ball_vBuffer );
+    gl.bufferData( gl.ARRAY_BUFFER, flatten(sphereData.position), gl.STATIC_DRAW );
+
+    ball_nBuffer = gl.createBuffer();
+    gl.bindBuffer( gl.ARRAY_BUFFER, ball_nBuffer );
+    gl.bufferData( gl.ARRAY_BUFFER, flatten(sphereData.normal), gl.STATIC_DRAW );
+
+    ball_cBuffer = gl.createBuffer();
+    gl.bindBuffer( gl.ARRAY_BUFFER, ball_cBuffer );
+    gl.bufferData( gl.ARRAY_BUFFER, flatten(sphereData.colors), gl.STATIC_DRAW );
+
     var ambientProduct = mult(lightAmbient, materialAmbient);
     var diffuseProduct = mult(lightDiffuse, materialDiffuse);
     var specularProduct = mult(lightSpecular, materialSpecular);
@@ -168,14 +188,19 @@ var render = function(){
     fallCheck(controller);
     respawnCheck(controller);
 
-    //console.log(`X OFFSET: ${controller.getXOffset()}\nZ OFFSET: ${controller.getZOffset()}`);
-
     gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-    //transformation matrix with controller offsets
+    //animate light position
+    var time = performance.now() / 1000;
+    lightPosition[0] = 20.0 * Math.cos(time * 0.15);
+    lightPosition[2] = 30.0 * Math.sin(time * 0.15);
+    gl.uniform4fv(lightPosLoc, flatten(lightPosition));
+
+    //transformation matrix with controller offsets and duck scale
     var tlateMatrix = translate(controller.getXOffset(), controller.getYOffset(), controller.getZOffset());
     var rMatrix = rotate(controller.getRotation(), 0, 1, 0);
-    var tformMatrix = mult(tlateMatrix, rMatrix);
+    var sMatrix = scalem(duckScale, duckScale, duckScale);
+    var tformMatrix = mult(tlateMatrix, mult(rMatrix, sMatrix));
 
     //focus on ducky!
     at[0]=controller.getXOffset();
@@ -241,6 +266,51 @@ var render = function(){
         gl.enableVertexAttribArray(vColor);
         
         gl.drawArrays(gl.TRIANGLES, 0, floorData.position.length); 
+    }
+
+    // draw balls
+    if (sphereData != undefined) {
+        for (var i = 0; i < balls.length; i++) {
+            if (balls[i].collected) continue;
+
+            var bobY = Math.sin(time * 2.0 + i * 1.5) * 0.4;
+
+            var dx = balls[i].x - controller.getXOffset();
+            var dz = balls[i].z - controller.getZOffset();
+            var dy = (balls[i].y + bobY) - controller.getYOffset();
+            var dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
+            if (dist < 0.8 * duckScale + 0.5) {
+                balls[i].collected = true;
+                duckScale += 0.3;
+                collectedCount++;
+                var sizeDisplay = document.getElementById('sizeDisplay');
+                if (sizeDisplay) sizeDisplay.textContent = 'Size: ' + duckScale.toFixed(1) + 'x  |  Balls: ' + collectedCount;
+                continue;
+            }
+
+            var ballM = mult(translate(balls[i].x, balls[i].y + bobY, balls[i].z), rotate(time * 60, 0, 1, 0));
+            var ballMV = mult(modelViewMatrix, ballM);
+            gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(ballMV));
+
+            gl.uniform4fv(gl.getUniformLocation(program, "ambientProduct"), flatten(vec4(1.0, 1.0, 1.0, 1.0)));
+            gl.uniform4fv(gl.getUniformLocation(program, "diffuseProduct"), flatten(vec4(1.0, 1.0, 1.0, 1.0)));
+            gl.uniform4fv(gl.getUniformLocation(program, "specularProduct"), flatten(vec4(1.0, 1.0, 1.0, 1.0)));
+            gl.uniform1f(gl.getUniformLocation(program, "shininess"), 100.0);
+
+            gl.bindBuffer(gl.ARRAY_BUFFER, ball_vBuffer);
+            gl.vertexAttribPointer(vPosition, 3, gl.FLOAT, false, 0, 0);
+            gl.enableVertexAttribArray(vPosition);
+
+            gl.bindBuffer(gl.ARRAY_BUFFER, ball_nBuffer);
+            gl.vertexAttribPointer(vNormal, 3, gl.FLOAT, false, 0, 0);
+            gl.enableVertexAttribArray(vNormal);
+
+            gl.bindBuffer(gl.ARRAY_BUFFER, ball_cBuffer);
+            gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 0, 0);
+            gl.enableVertexAttribArray(vColor);
+
+            gl.drawArrays(gl.TRIANGLES, 0, ballPositionCount / 3);
+        }
     }
 
     requestAnimationFrame(render);
