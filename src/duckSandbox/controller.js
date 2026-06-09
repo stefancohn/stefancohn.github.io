@@ -4,6 +4,7 @@ class Controller {
     #yOffset = 0; 
 
     #speed = 0.2
+    #rotSpeed = 2.0;
     #rotation = 0;
     falling = false;
 
@@ -31,26 +32,24 @@ class Controller {
 
     //called from main loop
     update() {
-        //elif so can't go multiple directions at once 
+        var rad = radians(this.#rotation);
 
-        if (this.#keysPressed.indexOf('w')>-1){
-            this.#zOffset -= this.#speed;
-            this.#rotation = 90;
-        } 
-
-        else if (this.#keysPressed.indexOf('s')>-1){ 
-            this.#zOffset += this.#speed;
-            this.#rotation = 270;
+        if (this.#keysPressed.indexOf('w') > -1) {
+            this.#xOffset += this.#speed * Math.cos(rad);
+            this.#zOffset -= this.#speed * Math.sin(rad);
         }
 
-        else if (this.#keysPressed.indexOf('a')>-1) {
-            this.#xOffset -= this.#speed;
-            this.#rotation = 180;
+        if (this.#keysPressed.indexOf('s') > -1) {
+            this.#xOffset -= this.#speed * Math.cos(rad);
+            this.#zOffset += this.#speed * Math.sin(rad);
         }
 
-        else if (this.#keysPressed.indexOf('d')>-1) {
-            this.#xOffset += this.#speed;   
-            this.#rotation =0;
+        if (this.#keysPressed.indexOf('a') > -1) {
+            this.#rotation -= this.#rotSpeed;
+        }
+
+        if (this.#keysPressed.indexOf('d') > -1) {
+            this.#rotation += this.#rotSpeed;
         }
     }
 
